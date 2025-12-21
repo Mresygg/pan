@@ -2,170 +2,610 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>下载中心 · mcsever.site</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>下载中心 · mcsever.site</title>
 
   <meta name="description" content="mcsever.site 官方下载中心，提供 Minecraft 客户端与整合包下载，国内高速访问。" />
   <meta name="keywords" content="mcsever,下载,Minecraft客户端,整合包,Mresy" />
   <meta name="author" content="Mresy" />
 
   <style>
-    :root {
-      --bg: #ffffff;
-      --text: #0f172a;
-      --sub: #475569;
-      --card: #f8fafc;
-      --border: #e5e7eb;
-      --accent: #007aff;
-      --radius: 20px;
+    :root{
+      --text:#0b1220;
+      --sub:rgba(11,18,32,.72);
+
+      --glass:rgba(255,255,255,.45);
+      --glass-2:rgba(255,255,255,.62);
+      --stroke:rgba(255,255,255,.42);
+      --stroke2:rgba(15,23,42,.10);
+
+      --shadow: 0 28px 80px rgba(2,6,23,.16);
+      --shadow2: 0 14px 34px rgba(2,6,23,.12);
+
+      --radius: 28px;
+      --radius2: 999px;
+
+      --accent:#007aff;
+      --accent2:#6aa7ff;
+
+      --blur: 22px;
+      --blur2: 34px;
     }
 
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
-      background: var(--bg);
-      color: var(--text);
+    @media (prefers-color-scheme: dark){
+      :root{
+        --text:#f3f6ff;
+        --sub:rgba(243,246,255,.72);
+        --glass:rgba(18,20,28,.46);
+        --glass-2:rgba(18,20,28,.62);
+        --stroke:rgba(255,255,255,.14);
+        --stroke2:rgba(255,255,255,.09);
+        --shadow: 0 30px 90px rgba(0,0,0,.58);
+        --shadow2: 0 16px 38px rgba(0,0,0,.42);
+      }
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",Roboto,
+                  "PingFang SC","Microsoft YaHei",sans-serif;
       -webkit-font-smoothing: antialiased;
+      color:var(--text);
+      overflow-x:hidden;
+
+      /* fallback */
+      background: linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.92));
+    }
+    @media (prefers-color-scheme: dark){
+      body{
+        background: linear-gradient(180deg, rgba(8,10,16,.92), rgba(8,10,16,.96));
+      }
     }
 
-    header {
-      padding: 100px 24px 60px;
-      text-align: center;
+    /* ======= Wallpapery animated background ======= */
+    .bg{
+      position:fixed;
+      inset:-20%;
+      z-index:-2;
+      filter: blur(0px);
+      transform: translateZ(0);
+      pointer-events:none;
+      opacity: 1;
+    }
+    .blob{
+      position:absolute;
+      width: 64vmax;
+      height: 64vmax;
+      border-radius: 999px;
+      filter: blur(40px);
+      opacity: .20;
+      transform: translate3d(0,0,0);
+      mix-blend-mode: multiply;
+      animation: floaty 18s ease-in-out infinite;
+      will-change: transform;
+    }
+    .blob.b1{
+      left:-8vmax; top:-10vmax;
+      background: radial-gradient(circle at 30% 30%, rgba(0,122,255,.85), transparent 60%),
+                  radial-gradient(circle at 65% 60%, rgba(106,167,255,.55), transparent 62%);
+      animation-duration: 20s;
+    }
+    .blob.b2{
+      right:-10vmax; top:-6vmax;
+      background: radial-gradient(circle at 35% 35%, rgba(52,199,89,.70), transparent 58%),
+                  radial-gradient(circle at 70% 60%, rgba(0,122,255,.40), transparent 64%);
+      animation-duration: 22s;
+      animation-delay: -6s;
+    }
+    .blob.b3{
+      left:10vmax; bottom:-12vmax;
+      background: radial-gradient(circle at 35% 35%, rgba(255,159,10,.65), transparent 60%),
+                  radial-gradient(circle at 68% 58%, rgba(0,122,255,.35), transparent 65%);
+      animation-duration: 24s;
+      animation-delay: -12s;
     }
 
-    header h1 {
-      font-size: 48px;
-      letter-spacing: -1px;
-      margin-bottom: 16px;
+    @media (prefers-color-scheme: dark){
+      .blob{ opacity: .22; mix-blend-mode: screen; }
     }
 
-    header p {
-      font-size: 20px;
-      color: var(--sub);
-      max-width: 720px;
+    /* subtle global gradient drift */
+    .bg:after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(1200px 900px at 20% 10%, rgba(0,122,255,.18), transparent 58%),
+        radial-gradient(1000px 780px at 86% 18%, rgba(52,199,89,.14), transparent 60%),
+        radial-gradient(1200px 920px at 55% 92%, rgba(255,159,10,.12), transparent 62%);
+      opacity: .9;
+      animation: drift 14s ease-in-out infinite;
+      will-change: transform;
+      filter: saturate(1.05);
+    }
+
+    /* subtle noise for “glass wallpaper” */
+    .noise{
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+      opacity:.09;
+      mix-blend-mode: overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      background-size:180px 180px;
+    }
+
+    @keyframes floaty{
+      0%   { transform: translate3d(0,0,0) scale(1); }
+      35%  { transform: translate3d(6vmax, 2.5vmax, 0) scale(1.03); }
+      65%  { transform: translate3d(-4vmax, 3.5vmax, 0) scale(1.02); }
+      100% { transform: translate3d(0,0,0) scale(1); }
+    }
+    @keyframes drift{
+      0%   { transform: translate3d(0,0,0) scale(1); }
+      50%  { transform: translate3d(-1.5vmax, 1vmax, 0) scale(1.02); }
+      100% { transform: translate3d(0,0,0) scale(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .blob, .bg:after{ animation: none !important; }
+    }
+
+    /* ======= Layout ======= */
+    .wrap{
+      max-width: 1120px;
       margin: 0 auto;
+      padding: 34px 18px 88px;
     }
 
-    section {
-      max-width: 1100px;
-      margin: 0 auto 100px;
-      padding: 0 24px;
+    .topbar{
+      position: sticky;
+      top: 14px;
+      z-index: 10;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding: 12px 14px;
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.34);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+    }
+    @media (prefers-color-scheme: dark){
+      .topbar{ background: rgba(18,20,28,.34); }
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 28px;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+    .dot{
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(0,122,255,1), rgba(106,167,255,1));
+      box-shadow: 0 12px 30px rgba(0,122,255,.35);
+      flex: 0 0 auto;
+    }
+    .brand strong{
+      font-size: 14px;
+      letter-spacing:.2px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .actions{
+      display:flex;
+      gap:8px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
     }
 
-    .card {
-      background: var(--card);
+    header{
+      padding: 74px 8px 26px;
+      text-align:center;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size: 52px;
+      letter-spacing: -1.25px;
+      line-height: 1.05;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    /* ======= Liquid glass card with flowing rim highlight ======= */
+    .card{
+      position:relative;
       border-radius: var(--radius);
-      padding: 36px;
-      border: 1px solid var(--border);
+      padding: 22px 22px 20px;
+      background: var(--glass);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(var(--blur2)) saturate(1.15);
+      -webkit-backdrop-filter: blur(var(--blur2)) saturate(1.15);
+      overflow:hidden;
+      transform: translateZ(0);
     }
 
-    .card h3 {
-      margin-top: 0;
-      font-size: 22px;
+    /* “refraction caustics” inside card */
+    .card:before{
+      content:"";
+      position:absolute;
+      inset:-30%;
+      background:
+        radial-gradient(600px 220px at 18% 12%, rgba(255,255,255,.85), transparent 65%),
+        radial-gradient(520px 220px at 92% 22%, rgba(255,255,255,.45), transparent 70%),
+        radial-gradient(700px 260px at 45% 110%, rgba(255,255,255,.35), transparent 70%),
+        conic-gradient(from 220deg at 50% 50%,
+          rgba(255,255,255,.00),
+          rgba(255,255,255,.18),
+          rgba(0,122,255,.12),
+          rgba(255,255,255,.00),
+          rgba(255,255,255,.14),
+          rgba(255,255,255,.00)
+        );
+      opacity: .45;
+      filter: blur(0.2px);
+      animation: causticMove 10s ease-in-out infinite;
+      pointer-events:none;
+      will-change: transform;
+    }
+    @media (prefers-color-scheme: dark){
+      .card:before{ opacity:.26; }
+    }
+
+    /* moving rim highlight (glass edge “flow”) */
+    .card:after{
+      content:"";
+      position:absolute;
+      inset: -2px;
+      border-radius: inherit;
+
+      /* mask creates a thin ring */
+      padding: 2px;
+      background: conic-gradient(
+        from 0deg,
+        rgba(255,255,255,.00),
+        rgba(255,255,255,.75),
+        rgba(255,255,255,.00),
+        rgba(106,167,255,.55),
+        rgba(255,255,255,.00),
+        rgba(255,255,255,.70),
+        rgba(255,255,255,.00)
+      );
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+
+      opacity: .55;
+      filter: blur(.2px);
+      animation: rimSpin 4.8s linear infinite;
+      pointer-events:none;
+      will-change: transform;
+    }
+    @media (prefers-color-scheme: dark){
+      .card:after{ opacity:.36; }
+    }
+
+    /* extra glossy sheen that responds to hover */
+    .sheen{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: radial-gradient(700px 260px at var(--mx, 30%) var(--my, 20%), rgba(255,255,255,.55), transparent 60%);
+      opacity: 0;
+      transition: opacity .18s ease;
+      pointer-events:none;
+      filter: blur(1px);
+    }
+    .card:hover .sheen{ opacity: .55; }
+    @media (prefers-color-scheme: dark){
+      .card:hover .sheen{ opacity: .32; }
+    }
+
+    @keyframes rimSpin{
+      0%{ transform: rotate(0deg); }
+      100%{ transform: rotate(360deg); }
+    }
+    @keyframes causticMove{
+      0%   { transform: translate3d(-2%, -1.5%, 0) rotate(-2deg) scale(1.02); }
+      50%  { transform: translate3d( 2.5%,  2%, 0) rotate( 2deg) scale(1.03); }
+      100% { transform: translate3d(-2%, -1.5%, 0) rotate(-2deg) scale(1.02); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .card:before, .card:after{ animation: none !important; }
+      .sheen{ transition:none !important; }
+    }
+
+    .card .inner{ position:relative; display:flex; flex-direction:column; gap:10px; }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      width:max-content;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.34);
+      border: 1px solid var(--stroke);
+      color: var(--sub);
+      font-size: 12px;
+      letter-spacing:.2px;
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+    }
+    @media (prefers-color-scheme: dark){
+      .tag{ background: rgba(18,20,28,.30); }
+    }
+    .tag i{
+      width: 8px; height:8px; border-radius:999px;
+      background: linear-gradient(135deg, rgba(0,122,255,1), rgba(106,167,255,1));
+      box-shadow: 0 12px 30px rgba(0,122,255,.28);
+      display:inline-block;
+    }
+
+    .card h3{
+      margin:0;
+      font-size: 20px;
       letter-spacing: -.3px;
     }
-
-    .card p {
+    .card p{
+      margin:0;
       color: var(--sub);
-      line-height: 1.7;
+      line-height: 1.75;
+      font-size: 15px;
     }
 
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 14px 26px;
+    .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .divider{
+      height:1px;
+      width:100%;
+      background: linear-gradient(90deg, transparent, var(--stroke2), transparent);
+      margin: 8px 0;
+    }
+
+    .btn{
+      appearance:none;
+      border:1px solid transparent;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 16px;
       border-radius: 999px;
-      background: var(--accent);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 16px;
-      box-shadow: 0 8px 20px rgba(0,122,255,.25);
-      transition: transform .15s ease;
-    }
-
-    .btn.secondary {
-      background: var(--card);
-      color: var(--text);
-      box-shadow: none;
-      border: 1px solid var(--border);
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-    }
-
-    footer {
-      text-align: center;
-      padding: 60px 24px;
-      color: var(--sub);
+      text-decoration:none;
+      font-weight: 650;
       font-size: 14px;
-      border-top: 1px solid var(--border);
+      letter-spacing:.2px;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+      user-select:none;
+      cursor:pointer;
+    }
+    .btn.primary{
+      color:#fff;
+      background: linear-gradient(135deg, rgba(0,122,255,1), rgba(106,167,255,1));
+      box-shadow: 0 18px 44px rgba(0,122,255,.26);
+    }
+    .btn.primary:hover{ transform: translateY(-2px); box-shadow: 0 22px 56px rgba(0,122,255,.30); }
+    .btn.primary:active{ transform: translateY(0px) scale(.99); }
+
+    .btn.glass{
+      color: var(--text);
+      background: rgba(255,255,255,.34);
+      border-color: var(--stroke);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+    }
+    @media (prefers-color-scheme: dark){
+      .btn.glass{ background: rgba(18,20,28,.30); }
+    }
+    .btn.glass:hover{ transform: translateY(-2px); border-color: rgba(255,255,255,.55); }
+    .btn.glass:active{ transform: translateY(0px) scale(.99); }
+
+    .btn.small{ padding:10px 12px; font-size:13px; font-weight:650; }
+
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.28);
+      border: 1px solid var(--stroke);
+      color: var(--text);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+    }
+    @media (prefers-color-scheme: dark){
+      .kbd{ background: rgba(18,20,28,.26); }
     }
 
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
+    .callout{ grid-column: 1 / -1; background: var(--glass-2); }
+
+    footer{
+      margin-top: 34px;
+      text-align:center;
+      color: var(--sub);
+      font-size: 13px;
+      padding: 18px 6px;
+    }
+    footer a{ color: var(--accent2); text-decoration:none; }
+    footer a:hover{ text-decoration:underline; }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom: 26px;
+      transform: translateX(-50%);
+      padding: 12px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.34);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      color: var(--text);
+      font-size: 13px;
+      opacity: 0;
+      pointer-events:none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    @media (prefers-color-scheme: dark){
+      .toast{ background: rgba(18,20,28,.32); }
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(-4px);
     }
   </style>
 </head>
+
 <body>
-
-<header>
-  <h1>下载中心</h1>
-  <p>
-    mcsever.site 官方资源下载页面。<br />
-    所有文件均适配国内网络环境。
-  </p>
-</header>
-
-<section>
-  <div class="grid">
-
-    <!-- 下载顺序提示 -->
-    <div class="card" style="grid-column:1 / -1; background:#eef6ff; border-color:#cfe4ff;">
-      <h3>下载说明</h3>
-      <p style="color:#334155">
-        请<strong>按顺序下载</strong>客户端文件：<br />
-        下载完成后放在同一目录并解压即可使用。<br />
-        
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>客户端</h3>
-      <p>
-        mcsever 官方客户端资源分卷一，
-        适用于国内网络环境。
-      </p>
-      <a class="btn" href="https://wwbch.lanzouw.com/iVhqQ3dzqlfe" target="_blank">下载</a>
-    </div>
-
-    <div class="card">
-      <h3>进入服务器</h3>
-      <p>
-        游戏内多人模式，
-        添加服务器地址：
-        <strong>mc.mcsever.site</strong>
-      </p>
-      <a class="btn secondary" href="https://mcsever.site">返回官网</a>
-    </div>
-
+  <!-- wallpaper background -->
+  <div class="bg" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
   </div>
-</section>
+  <div class="noise" aria-hidden="true"></div>
 
-<footer>
-  <p>
-    © 2025 mcsever.site · Mresy<br />
-    <a href="https://mcsever.site">官方网站</a>
-  </p>
-</footer>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <span class="dot"></span>
+        <strong>pan.mcsever.site</strong>
+      </div>
+      <div class="actions">
+        <a class="btn glass small" href="https://mcsever.site" rel="noopener">官网</a>
+        <a class="btn glass small" href="https://mc.mcsever.site" rel="noopener">服务器</a>
+      </div>
+    </div>
 
+    <header>
+      <h1>下载中心</h1>
+    </header>
+
+    <section class="grid">
+      <div class="card callout">
+        <div class="sheen"></div>
+        <div class="inner">
+          <span class="tag"><i></i> 下载信息</span>
+          <h3>蓝奏云链接与密码</h3>
+          <p>
+            <span class="kbd">https://wwbch.lanzouw.com/b01880b2ob</span><br />
+            <span class="kbd" id="pwdText">e4e4</span>
+          </p>
+          <div class="row">
+            <button class="btn glass small" id="copyPwdBtn" type="button">复制密码</button>
+            <button class="btn glass small" id="copyLinkBtn" type="button">复制链接</button>
+            <a class="btn primary" href="https://wwbch.lanzouw.com/b01880b2ob" target="_blank" rel="noopener">立即下载</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="sheen"></div>
+        <div class="inner">
+          <span class="tag"><i></i> 进入服务器</span>
+          <h3>服务器地址</h3>
+          <p><span class="kbd">mc.mcsever.site</span></p>
+          <div class="divider"></div>
+          <div class="row">
+            <button class="btn glass" id="copyServerBtn" type="button">复制服务器地址</button>
+            <a class="btn glass" href="https://mcsever.site" rel="noopener">打开官网</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="sheen"></div>
+        <div class="inner">
+          <span class="tag"><i></i> 备用网址</span>
+          <h3>需要备用/镜像？</h3>
+          <p>你可以把新的备用下载链接也加在这里（可选）。</p>
+          <div class="divider"></div>
+          <div class="row">
+            <a class="btn glass" href="https://mcsever.site" rel="noopener">返回</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © 2025 mcsever.site · Mresy
+    </footer>
+  </div>
+
+  <div class="toast" id="toast">已复制</div>
+
+  <script>
+    // toast
+    const toast = document.getElementById('toast');
+    function showToast(text){
+      toast.textContent = text || "已复制";
+      toast.classList.add('show');
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => toast.classList.remove('show'), 1400);
+    }
+    async function copyText(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        showToast("已复制到剪贴板");
+      }catch(e){
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+        showToast("已复制到剪贴板");
+      }
+    }
+
+    document.getElementById('copyPwdBtn').addEventListener('click', () => copyText('e4e4'));
+    document.getElementById('copyLinkBtn').addEventListener('click', () => copyText('https://wwbch.lanzouw.com/b01880b2ob'));
+    document.getElementById('copyServerBtn').addEventListener('click', () => copyText('mc.mcsever.site'));
+
+    // glass “sheen follow cursor” (subtle)
+    const cards = document.querySelectorAll('.card');
+    function setVars(el, x, y){
+      el.style.setProperty('--mx', x + '%');
+      el.style.setProperty('--my', y + '%');
+    }
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width) * 100;
+        const y = ((e.clientY - r.top) / r.height) * 100;
+        setVars(card, x, y);
+      });
+      card.addEventListener('mouseleave', () => setVars(card, 30, 20));
+      setVars(card, 30, 20);
+    });
+  </script>
 </body>
 </html>
