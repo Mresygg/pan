@@ -114,3 +114,294 @@
     .wrap{
       max-width: 1100px;
       margin:0 auto;
+      padding: 72px 24px 88px;
+      text-align:center;
+    }
+    h1{
+      margin:0;
+      font-size: clamp(44px, 6.2vw, 78px);
+      letter-spacing:-0.03em;
+      line-height:1.04;
+    }
+    .subtitle{
+      margin: 16px auto 0;
+      max-width: 820px;
+      color: var(--muted);
+      font-size: clamp(15px, 2.0vw, 18px);
+      line-height: 1.75;
+    }
+
+    .grid{
+      margin-top: 42px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+      text-align:left;
+    }
+
+    /* Card as a link */
+    .cardlink{
+      grid-column: span 6;
+      display:block;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      overflow:hidden;
+      text-decoration:none;
+      color: inherit;
+      position:relative;
+      transform: translateZ(0);
+      transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+    }
+    .cardlink:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 36px 100px rgba(0,0,0,.14);
+      border-color: rgba(10,102,255,.25);
+    }
+    .cardlink:active{ transform: translateY(0px); }
+
+    .cardlink.full{ grid-column: span 12; }
+
+    .cardpad{ padding: 22px; }
+
+    .toprow{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap: 14px;
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 7px 10px;
+      border-radius: var(--pill);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.52);
+      color: var(--muted);
+      font-size: 12px;
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+    }
+    @media (prefers-color-scheme: dark){
+      .tag{ background: rgba(255,255,255,.06); }
+    }
+    .dot{
+      width: 8px; height:8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 12px 30px rgba(10,102,255,.25);
+    }
+
+    .title{
+      margin: 12px 0 0;
+      font-size: 22px;
+      letter-spacing:-0.02em;
+    }
+    .desc{
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .meta{
+      margin-top: 14px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 12px;
+      border-radius: var(--pill);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.50);
+      font-size: 13px;
+      color: var(--text);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+    }
+    @media (prefers-color-scheme: dark){
+      .pill{ background: rgba(255,255,255,.06); }
+    }
+
+    .btnrow{
+      margin-top: 18px;
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .mini{
+      appearance:none;
+      border: 1px solid rgba(10,102,255,.28);
+      background: rgba(255,255,255,.55);
+      color: var(--accent);
+      border-radius: var(--pill);
+      padding: 10px 14px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor:pointer;
+      user-select:none;
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      transition: transform .12s ease, background .12s ease;
+    }
+    @media (prefers-color-scheme: dark){
+      .mini{ background: rgba(255,255,255,.06); }
+    }
+    .mini:hover{ transform: translateY(-1px); }
+    .mini:active{ transform: translateY(0); }
+
+    .primaryBadge{
+      padding: 7px 10px;
+      border-radius: var(--pill);
+      background: rgba(10,102,255,.14);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid rgba(10,102,255,.22);
+    }
+
+    /* subtle arrow */
+    .arrow{
+      font-size: 18px;
+      color: var(--muted);
+      margin-top: 2px;
+      transition: transform .16s ease;
+    }
+    .cardlink:hover .arrow{ transform: translateX(2px); }
+
+    /* toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      transform: translateX(-50%);
+      padding: 12px 14px;
+      border-radius: var(--pill);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.65);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      box-shadow: var(--shadowSoft);
+      color: var(--text);
+      font-size: 13px;
+      opacity: 0;
+      pointer-events:none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    @media (prefers-color-scheme: dark){
+      .toast{ background: rgba(10,12,18,.65); }
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(-4px);
+    }
+
+    @media (max-width: 820px){
+      .cardlink{ grid-column: span 12; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">MCSEVER</div>
+      <div class="nav">
+        <a href="https://mcsever.site">主页</a>
+        <a href="https://connect.mcsever.site">服务器地址</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <h1>下载客户端</h1>
+    <p class="subtitle">点击卡片即可跳转下载。主下载不可用时，请使用备用下载。</p>
+
+    <section class="grid">
+
+      <!-- Main Download Card -->
+      <a class="cardlink" href="https://wwbch.lanzouw.com/b01880b2ob" target="_blank" rel="noopener">
+        <div class="cardpad">
+          <div class="toprow">
+            <div class="tag"><span class="dot"></span>主下载</div>
+            <div class="arrow">›</div>
+          </div>
+
+          <h2 class="title">蓝奏云下载</h2>
+          <p class="desc">推荐使用。若提示输入提取码，请复制后粘贴。</p>
+
+          <div class="meta">
+            <span class="pill">提取码：<b id="pwdText">e4e4</b></span>
+            <span class="primaryBadge">推荐</span>
+          </div>
+
+          <div class="btnrow">
+            <button class="mini" type="button" id="copyPwdBtn">复制提取码</button>
+            <button class="mini" type="button" id="copyMainBtn">复制主下载链接</button>
+          </div>
+        </div>
+      </a>
+
+      <!-- Backup Download Card -->
+      <a class="cardlink" href="https://59-47-225-42.pd1.cjjd19.com/1135-user-share-free-download-cdn.123295.com/123-972/064d28b9/1837528445-0/064d28b94c731ed73e626bc9d2f61fcc/c-m42?v=5&t=1766925130&r=7EG1H6&bzc=2&bzs=313833373532383434353a31313039343933373a3132323333323636353a313833373532383434353a32&ur=vangalngpngmu&urn=0&s=1766925130b9879333d38d12230346dd11cbbae8a6&bzp=0&bi=17727462&filename=MC+%283%29.zip&x-mf-biz-cid=6927c0ec-d57a-48d8-a147-dadf16083979-08139d&auto_redirect=0&ndcp=1&cache_type=1"
+         target="_blank" rel="noopener">
+        <div class="cardpad">
+          <div class="toprow">
+            <div class="tag"><span class="dot"></span>备用下载</div>
+            <div class="arrow">›</div>
+          </div>
+
+          <h2 class="title">直链下载</h2>
+          <p class="desc">当主下载无法访问时使用。点击卡片直接开始下载。</p>
+
+          <div class="meta">
+            <span class="pill">无需提取码</span>
+          </div>
+
+          <div class="btnrow">
+            <button class="mini" type="button" id="copyBackupBtn">复制备用下载链接</button>
+          </div>
+        </div>
+      </a>
+
+      <!-- Connect Card -->
+      <a class="cardlink full" href="https://connect.mcsever.site" rel="noopener">
+        <div class="cardpad">
+          <div class="toprow">
+            <div class="tag"><span class="dot"></span>服务器地址</div>
+            <div class="arrow">›</div>
+          </div>
+
+          <h2 class="title">获取服务器 IP / 地址</h2>
+          <p class="desc">服务器地址通过 connect 页面获取与确认，避免写死导致变更麻烦。</p>
+
+          <div class="btnrow">
+            <span class="pill">connect.mcsever.site</span>
+          </div>
+        </div>
+      </a>
+
+    </section>
+
+    <footer style="margin-top:32px;color:rgba(11,18,32,.55);font-size:12px;text-align:center;">
+      © 2025 mcsever.site · Mresy
+    </footer>
+  </main>
+
+  <div class="toast" id="toast">已复制</div>
+
+  <script>
+    const MAIN = "https://wwbch.lanzouw.com/b01880b2ob";
+    const BACKUP = "https://59-47-225-42.pd1.cjjd19.com/1135-user-share-free-download-cdn.123295.com/123-972/064d28b9/1837528445-0/064d28b94c731ed73e626bc9d2f61fcc/c-m42?v=5&t=1766925130&r=7EG1H6&bzc=2&bzs=313833373532383434353a31313039343933373a3132323333323636353a313833373532383434353a32&ur=vangalngpngmu&urn=0&s=1766925130b9879333d38d12230346dd11cbbae8a6&bzp=0&bi=17727462&filename=MC+%283%29.zip&x-mf-biz-cid=6927c0ec-d57a-48d8-a147-dadf
