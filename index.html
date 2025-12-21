@@ -3,45 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>下载中心 · mcsever.site</title>
+  <title data-i18n-title>下载 · MCSEVER</title>
 
-  <meta name="description" content="mcsever.site 官方下载中心，提供 Minecraft 客户端与整合包下载，国内高速访问。" />
-  <meta name="keywords" content="mcsever,下载,Minecraft客户端,整合包,Mresy" />
+  <meta name="description" content="MCSEVER 下载中心：主下载与备用下载。" />
   <meta name="author" content="Mresy" />
 
   <style>
     :root{
-      --text:#0b1220;
-      --sub:rgba(11,18,32,.72);
-
-      --glass:rgba(255,255,255,.45);
-      --glass-2:rgba(255,255,255,.62);
-      --stroke:rgba(255,255,255,.42);
-      --stroke2:rgba(15,23,42,.10);
-
-      --shadow: 0 28px 80px rgba(2,6,23,.16);
-      --shadow2: 0 14px 34px rgba(2,6,23,.12);
-
-      --radius: 28px;
-      --radius2: 999px;
-
-      --accent:#007aff;
-      --accent2:#6aa7ff;
-
-      --blur: 22px;
-      --blur2: 34px;
+      --bg1:#f7f7f8;
+      --bg2:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --line:rgba(17,24,39,.10);
+      --btn:#0a66ff;
+      --btnText:#fff;
+      --btn2bg:#ffffff;
+      --btn2text:#0a66ff;
+      --btn2line:rgba(10,102,255,.35);
+      --shadow: 0 18px 55px rgba(0,0,0,.10);
     }
-
     @media (prefers-color-scheme: dark){
       :root{
-        --text:#f3f6ff;
-        --sub:rgba(243,246,255,.72);
-        --glass:rgba(18,20,28,.46);
-        --glass-2:rgba(18,20,28,.62);
-        --stroke:rgba(255,255,255,.14);
-        --stroke2:rgba(255,255,255,.09);
-        --shadow: 0 30px 90px rgba(0,0,0,.58);
-        --shadow2: 0 16px 38px rgba(0,0,0,.42);
+        --bg1:#0b0f17;
+        --bg2:#080b12;
+        --text:#e5e7eb;
+        --muted:rgba(229,231,235,.68);
+        --line:rgba(255,255,255,.10);
+        --btn:#2f7dff;
+        --btnText:#081018;
+        --btn2bg:rgba(255,255,255,.06);
+        --btn2text:#dbeafe;
+        --btn2line:rgba(47,125,255,.45);
+        --shadow: 0 18px 65px rgba(0,0,0,.55);
       }
     }
 
@@ -50,432 +43,232 @@
     body{
       margin:0;
       font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",Roboto,
-                  "PingFang SC","Microsoft YaHei",sans-serif;
-      -webkit-font-smoothing: antialiased;
+        "PingFang SC","Microsoft YaHei",sans-serif;
       color:var(--text);
-      overflow-x:hidden;
-
-      /* fallback */
-      background: linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.92));
-    }
-    @media (prefers-color-scheme: dark){
-      body{
-        background: linear-gradient(180deg, rgba(8,10,16,.92), rgba(8,10,16,.96));
-      }
-    }
-
-    /* ======= Wallpapery animated background ======= */
-    .bg{
-      position:fixed;
-      inset:-20%;
-      z-index:-2;
-      filter: blur(0px);
-      transform: translateZ(0);
-      pointer-events:none;
-      opacity: 1;
-    }
-    .blob{
-      position:absolute;
-      width: 64vmax;
-      height: 64vmax;
-      border-radius: 999px;
-      filter: blur(40px);
-      opacity: .20;
-      transform: translate3d(0,0,0);
-      mix-blend-mode: multiply;
-      animation: floaty 18s ease-in-out infinite;
-      will-change: transform;
-    }
-    .blob.b1{
-      left:-8vmax; top:-10vmax;
-      background: radial-gradient(circle at 30% 30%, rgba(0,122,255,.85), transparent 60%),
-                  radial-gradient(circle at 65% 60%, rgba(106,167,255,.55), transparent 62%);
-      animation-duration: 20s;
-    }
-    .blob.b2{
-      right:-10vmax; top:-6vmax;
-      background: radial-gradient(circle at 35% 35%, rgba(52,199,89,.70), transparent 58%),
-                  radial-gradient(circle at 70% 60%, rgba(0,122,255,.40), transparent 64%);
-      animation-duration: 22s;
-      animation-delay: -6s;
-    }
-    .blob.b3{
-      left:10vmax; bottom:-12vmax;
-      background: radial-gradient(circle at 35% 35%, rgba(255,159,10,.65), transparent 60%),
-                  radial-gradient(circle at 68% 58%, rgba(0,122,255,.35), transparent 65%);
-      animation-duration: 24s;
-      animation-delay: -12s;
-    }
-
-    @media (prefers-color-scheme: dark){
-      .blob{ opacity: .22; mix-blend-mode: screen; }
-    }
-
-    /* subtle global gradient drift */
-    .bg:after{
-      content:"";
-      position:absolute;
-      inset:0;
+      -webkit-font-smoothing: antialiased;
       background:
-        radial-gradient(1200px 900px at 20% 10%, rgba(0,122,255,.18), transparent 58%),
-        radial-gradient(1000px 780px at 86% 18%, rgba(52,199,89,.14), transparent 60%),
-        radial-gradient(1200px 920px at 55% 92%, rgba(255,159,10,.12), transparent 62%);
-      opacity: .9;
-      animation: drift 14s ease-in-out infinite;
-      will-change: transform;
-      filter: saturate(1.05);
+        radial-gradient(1200px 700px at 50% 40%, rgba(10,102,255,.10), transparent 55%),
+        radial-gradient(900px 600px at 20% 20%, rgba(0,0,0,.06), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
     }
 
-    /* subtle noise for “glass wallpaper” */
-    .noise{
+    body:before{
+      content:"";
       position:fixed;
       inset:0;
-      z-index:-1;
       pointer-events:none;
-      opacity:.09;
+      opacity:.08;
       mix-blend-mode: overlay;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
-      background-size:180px 180px;
-    }
-
-    @keyframes floaty{
-      0%   { transform: translate3d(0,0,0) scale(1); }
-      35%  { transform: translate3d(6vmax, 2.5vmax, 0) scale(1.03); }
-      65%  { transform: translate3d(-4vmax, 3.5vmax, 0) scale(1.02); }
-      100% { transform: translate3d(0,0,0) scale(1); }
-    }
-    @keyframes drift{
-      0%   { transform: translate3d(0,0,0) scale(1); }
-      50%  { transform: translate3d(-1.5vmax, 1vmax, 0) scale(1.02); }
-      100% { transform: translate3d(0,0,0) scale(1); }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      .blob, .bg:after{ animation: none !important; }
-    }
-
-    /* ======= Layout ======= */
-    .wrap{
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 34px 18px 88px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+      background-size:160px 160px;
     }
 
     .topbar{
-      position: sticky;
-      top: 14px;
-      z-index: 10;
+      height:64px;
       display:flex;
-      justify-content:space-between;
       align-items:center;
-      gap:12px;
-      padding: 12px 14px;
-      border-radius: var(--radius2);
-      background: rgba(255,255,255,.34);
-      border: 1px solid var(--stroke);
-      box-shadow: var(--shadow2);
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
+      justify-content:center;
+      border-bottom:1px solid var(--line);
+      background: rgba(255,255,255,.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position: sticky;
+      top:0;
+      z-index:10;
     }
     @media (prefers-color-scheme: dark){
-      .topbar{ background: rgba(18,20,28,.34); }
+      .topbar{ background: rgba(10,12,18,.55); }
     }
-
-    .brand{
+    .topbar-inner{
+      width: min(1100px, calc(100% - 48px));
       display:flex;
       align-items:center;
-      gap:10px;
-      min-width:0;
+      justify-content:space-between;
+      gap:16px;
     }
-    .dot{
-      width: 12px;
-      height: 12px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, rgba(0,122,255,1), rgba(106,167,255,1));
-      box-shadow: 0 12px 30px rgba(0,122,255,.35);
-      flex: 0 0 auto;
-    }
-    .brand strong{
+    .brand{
+      font-weight: 700;
+      letter-spacing: .28em;
       font-size: 14px;
-      letter-spacing:.2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      user-select:none;
     }
-    .actions{
+    .nav{
       display:flex;
-      gap:8px;
-      flex-wrap: wrap;
-      justify-content:flex-end;
+      align-items:center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .nav a{
+      color: inherit;
+      text-decoration:none;
+      padding: 8px 10px;
+      border-radius: 999px;
+      transition: background .15s ease, color .15s ease;
+    }
+    .nav a:hover{
+      color: var(--text);
+      background: rgba(17,24,39,.06);
+    }
+    @media (prefers-color-scheme: dark){
+      .nav a:hover{ background: rgba(255,255,255,.06); }
     }
 
-    header{
-      padding: 74px 8px 26px;
+    select{
+      appearance:none;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.55);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 13px;
+      outline: none;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      cursor:pointer;
+    }
+    @media (prefers-color-scheme: dark){
+      select{ background: rgba(255,255,255,.06); }
+    }
+
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 72px 24px 84px;
       text-align:center;
     }
+
     h1{
-      margin:0 0 10px;
-      font-size: 52px;
-      letter-spacing: -1.25px;
-      line-height: 1.05;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 18px;
-      margin-top: 18px;
-    }
-
-    /* ======= Liquid glass card with flowing rim highlight ======= */
-    .card{
-      position:relative;
-      border-radius: var(--radius);
-      padding: 22px 22px 20px;
-      background: var(--glass);
-      border: 1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(var(--blur2)) saturate(1.15);
-      -webkit-backdrop-filter: blur(var(--blur2)) saturate(1.15);
-      overflow:hidden;
-      transform: translateZ(0);
-    }
-
-    /* “refraction caustics” inside card */
-    .card:before{
-      content:"";
-      position:absolute;
-      inset:-30%;
-      background:
-        radial-gradient(600px 220px at 18% 12%, rgba(255,255,255,.85), transparent 65%),
-        radial-gradient(520px 220px at 92% 22%, rgba(255,255,255,.45), transparent 70%),
-        radial-gradient(700px 260px at 45% 110%, rgba(255,255,255,.35), transparent 70%),
-        conic-gradient(from 220deg at 50% 50%,
-          rgba(255,255,255,.00),
-          rgba(255,255,255,.18),
-          rgba(0,122,255,.12),
-          rgba(255,255,255,.00),
-          rgba(255,255,255,.14),
-          rgba(255,255,255,.00)
-        );
-      opacity: .45;
-      filter: blur(0.2px);
-      animation: causticMove 10s ease-in-out infinite;
-      pointer-events:none;
-      will-change: transform;
-    }
-    @media (prefers-color-scheme: dark){
-      .card:before{ opacity:.26; }
-    }
-
-    /* moving rim highlight (glass edge “flow”) */
-    .card:after{
-      content:"";
-      position:absolute;
-      inset: -2px;
-      border-radius: inherit;
-
-      /* mask creates a thin ring */
-      padding: 2px;
-      background: conic-gradient(
-        from 0deg,
-        rgba(255,255,255,.00),
-        rgba(255,255,255,.75),
-        rgba(255,255,255,.00),
-        rgba(106,167,255,.55),
-        rgba(255,255,255,.00),
-        rgba(255,255,255,.70),
-        rgba(255,255,255,.00)
-      );
-      -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-
-      opacity: .55;
-      filter: blur(.2px);
-      animation: rimSpin 4.8s linear infinite;
-      pointer-events:none;
-      will-change: transform;
-    }
-    @media (prefers-color-scheme: dark){
-      .card:after{ opacity:.36; }
-    }
-
-    /* extra glossy sheen that responds to hover */
-    .sheen{
-      content:"";
-      position:absolute;
-      inset:-40%;
-      background: radial-gradient(700px 260px at var(--mx, 30%) var(--my, 20%), rgba(255,255,255,.55), transparent 60%);
-      opacity: 0;
-      transition: opacity .18s ease;
-      pointer-events:none;
-      filter: blur(1px);
-    }
-    .card:hover .sheen{ opacity: .55; }
-    @media (prefers-color-scheme: dark){
-      .card:hover .sheen{ opacity: .32; }
-    }
-
-    @keyframes rimSpin{
-      0%{ transform: rotate(0deg); }
-      100%{ transform: rotate(360deg); }
-    }
-    @keyframes causticMove{
-      0%   { transform: translate3d(-2%, -1.5%, 0) rotate(-2deg) scale(1.02); }
-      50%  { transform: translate3d( 2.5%,  2%, 0) rotate( 2deg) scale(1.03); }
-      100% { transform: translate3d(-2%, -1.5%, 0) rotate(-2deg) scale(1.02); }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      .card:before, .card:after{ animation: none !important; }
-      .sheen{ transition:none !important; }
-    }
-
-    .card .inner{ position:relative; display:flex; flex-direction:column; gap:10px; }
-
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      width:max-content;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.34);
-      border: 1px solid var(--stroke);
-      color: var(--sub);
-      font-size: 12px;
-      letter-spacing:.2px;
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
-    }
-    @media (prefers-color-scheme: dark){
-      .tag{ background: rgba(18,20,28,.30); }
-    }
-    .tag i{
-      width: 8px; height:8px; border-radius:999px;
-      background: linear-gradient(135deg, rgba(0,122,255,1), rgba(106,167,255,1));
-      box-shadow: 0 12px 30px rgba(0,122,255,.28);
-      display:inline-block;
-    }
-
-    .card h3{
       margin:0;
-      font-size: 20px;
-      letter-spacing: -.3px;
+      font-size: clamp(38px, 5.8vw, 64px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
     }
-    .card p{
-      margin:0;
-      color: var(--sub);
+    .subtitle{
+      margin: 16px auto 0;
+      max-width: 820px;
+      font-size: clamp(15px, 2.0vw, 18px);
+      color: var(--muted);
       line-height: 1.75;
-      font-size: 15px;
+    }
+
+    .panel{
+      margin: 36px auto 0;
+      width: min(860px, 100%);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      text-align:left;
+    }
+    @media (prefers-color-scheme: dark){
+      .panel{ background: rgba(10,12,18,.55); }
     }
 
     .row{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 6px;
+      gap: 10px;
+      flex-wrap:wrap;
+      padding: 14px 10px;
+    }
+    .row + .row{ border-top: 1px solid var(--line); }
+
+    .label{
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .02em;
+    }
+    .value{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
     }
 
-    .divider{
-      height:1px;
-      width:100%;
-      background: linear-gradient(90deg, transparent, var(--stroke2), transparent);
-      margin: 8px 0;
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: var(--text);
+      max-width: 100%;
+      word-break: break-all;
+    }
+    @media (prefers-color-scheme: dark){
+      .kbd{ background: rgba(255,255,255,.06); }
+    }
+
+    .cta{
+      margin-top: 28px;
+      display:flex;
+      gap: 14px;
+      justify-content:center;
+      flex-wrap:wrap;
     }
 
     .btn{
-      appearance:none;
-      border:1px solid transparent;
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap:10px;
-      padding: 12px 16px;
+      min-width: 170px;
+      padding: 14px 22px;
       border-radius: 999px;
+      font-weight: 600;
+      font-size: 15px;
       text-decoration:none;
-      font-weight: 650;
-      font-size: 14px;
-      letter-spacing:.2px;
-      transition: transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+      border: 1px solid transparent;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
       user-select:none;
       cursor:pointer;
     }
     .btn.primary{
-      color:#fff;
-      background: linear-gradient(135deg, rgba(0,122,255,1), rgba(106,167,255,1));
-      box-shadow: 0 18px 44px rgba(0,122,255,.26);
+      background: var(--btn);
+      color: var(--btnText);
+      box-shadow: 0 16px 40px rgba(10,102,255,.22);
     }
-    .btn.primary:hover{ transform: translateY(-2px); box-shadow: 0 22px 56px rgba(0,122,255,.30); }
-    .btn.primary:active{ transform: translateY(0px) scale(.99); }
-
-    .btn.glass{
-      color: var(--text);
-      background: rgba(255,255,255,.34);
-      border-color: var(--stroke);
-      box-shadow: var(--shadow2);
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
+    .btn.primary:hover{ transform: translateY(-1px); box-shadow: 0 20px 55px rgba(10,102,255,.26); }
+    .btn.secondary{
+      background: var(--btn2bg);
+      color: var(--btn2text);
+      border-color: var(--btn2line);
+      box-shadow: var(--shadow);
     }
-    @media (prefers-color-scheme: dark){
-      .btn.glass{ background: rgba(18,20,28,.30); }
-    }
-    .btn.glass:hover{ transform: translateY(-2px); border-color: rgba(255,255,255,.55); }
-    .btn.glass:active{ transform: translateY(0px) scale(.99); }
-
-    .btn.small{ padding:10px 12px; font-size:13px; font-weight:650; }
-
-    .kbd{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-      padding: 2px 8px;
-      border-radius: 10px;
-      background: rgba(255,255,255,.28);
-      border: 1px solid var(--stroke);
-      color: var(--text);
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
-    }
-    @media (prefers-color-scheme: dark){
-      .kbd{ background: rgba(18,20,28,.26); }
-    }
-
-    .callout{ grid-column: 1 / -1; background: var(--glass-2); }
+    .btn.secondary:hover{ transform: translateY(-1px); }
 
     footer{
-      margin-top: 34px;
-      text-align:center;
-      color: var(--sub);
-      font-size: 13px;
-      padding: 18px 6px;
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 12px;
     }
-    footer a{ color: var(--accent2); text-decoration:none; }
-    footer a:hover{ text-decoration:underline; }
 
     .toast{
-      position:fixed;
-      left:50%;
+      position: fixed;
+      left: 50%;
       bottom: 26px;
       transform: translateX(-50%);
       padding: 12px 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,.34);
-      border: 1px solid var(--stroke);
-      box-shadow: var(--shadow2);
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.65);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
       color: var(--text);
       font-size: 13px;
       opacity: 0;
       pointer-events:none;
-      transition: opacity .2s ease, transform .2s ease;
+      transition: opacity .18s ease, transform .18s ease;
     }
     @media (prefers-color-scheme: dark){
-      .toast{ background: rgba(18,20,28,.32); }
+      .toast{ background: rgba(10,12,18,.65); }
     }
     .toast.show{
       opacity: 1;
@@ -485,126 +278,178 @@
 </head>
 
 <body>
-  <!-- wallpaper background -->
-  <div class="bg" aria-hidden="true">
-    <div class="blob b1"></div>
-    <div class="blob b2"></div>
-    <div class="blob b3"></div>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">MCSEVER</div>
+
+      <div class="nav">
+        <a href="https://mcsever.site" data-i18n="nav_home">主页</a>
+        <a href="https://connect.mcsever.site" data-i18n="nav_server">服务器地址</a>
+
+        <select id="langSelect" title="Language">
+          <option value="zh">简体中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+        </select>
+      </div>
+    </div>
   </div>
-  <div class="noise" aria-hidden="true"></div>
 
   <div class="wrap">
-    <div class="topbar">
-      <div class="brand">
-        <span class="dot"></span>
-        <strong>pan.mcsever.site</strong>
+    <h1 data-i18n="title">下载客户端</h1>
+    <p class="subtitle" data-i18n="subtitle">主下载与备用下载可任选其一。若主下载不可用，请使用备用下载。</p>
+
+    <div class="panel">
+      <div class="row">
+        <div>
+          <div class="label" data-i18n="main_link_label">主下载（蓝奏云）</div>
+          <div class="value">
+            <span class="kbd" id="mainLink">https://wwbch.lanzouw.com/b01880b2ob</span>
+            <button class="btn secondary" style="min-width:auto;padding:10px 14px;font-size:13px;" id="copyMainBtn" type="button" data-i18n="copy">复制</button>
+          </div>
+        </div>
       </div>
-      <div class="actions">
-        <a class="btn glass small" href="https://mcsever.site" rel="noopener">官网</a>
-        <a class="btn glass small" href="https://mc.mcsever.site" rel="noopener">服务器</a>
+
+      <div class="row">
+        <div>
+          <div class="label" data-i18n="pwd_label">提取码</div>
+          <div class="value">
+            <span class="kbd" id="pwdText">e4e4</span>
+            <button class="btn secondary" style="min-width:auto;padding:10px 14px;font-size:13px;" id="copyPwdBtn" type="button" data-i18n="copy">复制</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div style="width:100%;">
+          <div class="label" data-i18n="backup_label">备用下载（直链）</div>
+          <div class="value" style="width:100%;justify-content:space-between;">
+            <span class="kbd" id="backupLink" style="flex:1;">
+              https://59-47-225-42.pd1.cjjd19.com/1135-user-share-free-download-cdn.123295.com/123-972/064d28b9/1837528445-0/064d28b94c731ed73e626bc9d2f61fcc/c-m42?v=5&t=1766925130&r=7EG1H6&bzc=2&bzs=313833373532383434353a31313039343933373a3132323333323636353a313833373532383434353a32&ur=vangalngpngmu&urn=0&s=1766925130b9879333d38d12230346dd11cbbae8a6&bzp=0&bi=17727462&filename=MC+%283%29.zip&x-mf-biz-cid=6927c0ec-d57a-48d8-a147-dadf16083979-08139d&auto_redirect=0&ndcp=1&cache_type=1
+            </span>
+            <button class="btn secondary" style="min-width:auto;padding:10px 14px;font-size:13px;" id="copyBackupBtn" type="button" data-i18n="copy">复制</button>
+          </div>
+        </div>
       </div>
     </div>
 
-    <header>
-      <h1>下载中心</h1>
-    </header>
+    <div class="cta">
+      <a class="btn primary" href="https://wwbch.lanzouw.com/b01880b2ob" target="_blank" rel="noopener" data-i18n="btn_main">打开主下载</a>
+      <a class="btn secondary" href="https://59-47-225-42.pd1.cjjd19.com/1135-user-share-free-download-cdn.123295.com/123-972/064d28b9/1837528445-0/064d28b94c731ed73e626bc9d2f61fcc/c-m42?v=5&t=1766925130&r=7EG1H6&bzc=2&bzs=313833373532383434353a31313039343933373a3132323333323636353a313833373532383434353a32&ur=vangalngpngmu&urn=0&s=1766925130b9879333d38d12230346dd11cbbae8a6&bzp=0&bi=17727462&filename=MC+%283%29.zip&x-mf-biz-cid=6927c0ec-d57a-48d8-a147-dadf16083979-08139d&auto_redirect=0&ndcp=1&cache_type=1"
+         target="_blank" rel="noopener" data-i18n="btn_backup">打开备用下载</a>
+    </div>
 
-    <section class="grid">
-      <div class="card callout">
-        <div class="sheen"></div>
-        <div class="inner">
-          <span class="tag"><i></i> 下载信息</span>
-          <h3>蓝奏云链接与密码</h3>
-          <p>
-            <span class="kbd">https://wwbch.lanzouw.com/b01880b2ob</span><br />
-            <span class="kbd" id="pwdText">e4e4</span>
-          </p>
-          <div class="row">
-            <button class="btn glass small" id="copyPwdBtn" type="button">复制密码</button>
-            <button class="btn glass small" id="copyLinkBtn" type="button">复制链接</button>
-            <a class="btn primary" href="https://wwbch.lanzouw.com/b01880b2ob" target="_blank" rel="noopener">立即下载</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="sheen"></div>
-        <div class="inner">
-          <span class="tag"><i></i> 进入服务器</span>
-          <h3>服务器地址</h3>
-          <p><span class="kbd">mc.mcsever.site</span></p>
-          <div class="divider"></div>
-          <div class="row">
-            <button class="btn glass" id="copyServerBtn" type="button">复制服务器地址</button>
-            <a class="btn glass" href="https://mcsever.site" rel="noopener">打开官网</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="sheen"></div>
-        <div class="inner">
-          <span class="tag"><i></i> 备用网址</span>
-          <h3>需要备用/镜像？</h3>
-          <p>你可以把新的备用下载链接也加在这里（可选）。</p>
-          <div class="divider"></div>
-          <div class="row">
-            <a class="btn glass" href="https://mcsever.site" rel="noopener">返回</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      © 2025 mcsever.site · Mresy
-    </footer>
+    <footer>© 2025 mcsever.site · Mresy</footer>
   </div>
 
-  <div class="toast" id="toast">已复制</div>
+  <div class="toast" id="toast">Copied</div>
 
   <script>
-    // toast
+    const I18N = {
+      zh: {
+        title: "下载客户端",
+        subtitle: "主下载与备用下载可任选其一。若主下载不可用，请使用备用下载。",
+        nav_home: "主页",
+        nav_server: "服务器地址",
+        main_link_label: "主下载（蓝奏云）",
+        pwd_label: "提取码",
+        backup_label: "备用下载（直链）",
+        btn_main: "打开主下载",
+        btn_backup: "打开备用下载",
+        copy: "复制",
+        toast_copied: "已复制到剪贴板"
+      },
+      en: {
+        title: "Download Client",
+        subtitle: "Use either the main link or the backup link. If the main link fails, use the backup.",
+        nav_home: "Home",
+        nav_server: "Server",
+        main_link_label: "Main Download (Lanzou)",
+        pwd_label: "Password",
+        backup_label: "Backup Download (Direct)",
+        btn_main: "Open Main Download",
+        btn_backup: "Open Backup Download",
+        copy: "Copy",
+        toast_copied: "Copied to clipboard"
+      },
+      ja: {
+        title: "クライアントを入手",
+        subtitle: "メイン/予備のどちらでもOK。メインが不安定な場合は予備を使ってください。",
+        nav_home: "ホーム",
+        nav_server: "サーバー",
+        main_link_label: "メイン（Lanzou）",
+        pwd_label: "パスワード",
+        backup_label: "予備（直リンク）",
+        btn_main: "メインを開く",
+        btn_backup: "予備を開く",
+        copy: "コピー",
+        toast_copied: "コピーしました"
+      }
+    };
+
     const toast = document.getElementById('toast');
-    function showToast(text){
-      toast.textContent = text || "已复制";
+    function showToast(t){
+      toast.textContent = t;
       toast.classList.add('show');
       clearTimeout(showToast._t);
-      showToast._t = setTimeout(() => toast.classList.remove('show'), 1400);
+      showToast._t = setTimeout(()=>toast.classList.remove('show'), 1200);
     }
+
     async function copyText(text){
       try{
         await navigator.clipboard.writeText(text);
-        showToast("已复制到剪贴板");
       }catch(e){
-        const ta = document.createElement('textarea');
-        ta.value = text;
+        const ta=document.createElement('textarea');
+        ta.value=text;
         document.body.appendChild(ta);
         ta.select();
         document.execCommand('copy');
         ta.remove();
-        showToast("已复制到剪贴板");
       }
     }
 
-    document.getElementById('copyPwdBtn').addEventListener('click', () => copyText('e4e4'));
-    document.getElementById('copyLinkBtn').addEventListener('click', () => copyText('https://wwbch.lanzouw.com/b01880b2ob'));
-    document.getElementById('copyServerBtn').addEventListener('click', () => copyText('mc.mcsever.site'));
-
-    // glass “sheen follow cursor” (subtle)
-    const cards = document.querySelectorAll('.card');
-    function setVars(el, x, y){
-      el.style.setProperty('--mx', x + '%');
-      el.style.setProperty('--my', y + '%');
-    }
-    cards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const r = card.getBoundingClientRect();
-        const x = ((e.clientX - r.left) / r.width) * 100;
-        const y = ((e.clientY - r.top) / r.height) * 100;
-        setVars(card, x, y);
+    function applyLang(lang){
+      const dict = I18N[lang] || I18N.zh;
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        if(dict[key] != null) el.textContent = dict[key];
       });
-      card.addEventListener('mouseleave', () => setVars(card, 30, 20));
-      setVars(card, 30, 20);
+      localStorage.setItem('mcsever_lang', lang);
+      const titleEl = document.querySelector('[data-i18n-title]');
+      if(titleEl) document.title = (lang==='zh'?'下载 · MCSEVER':(lang==='ja'?'ダウンロード · MCSEVER':'Download · MCSEVER'));
+    }
+
+    function detectLang(){
+      const saved = localStorage.getItem('mcsever_lang');
+      if(saved && I18N[saved]) return saved;
+      const nav = (navigator.language || 'zh').toLowerCase();
+      if(nav.startsWith('ja')) return 'ja';
+      if(nav.startsWith('en')) return 'en';
+      return 'zh';
+    }
+
+    const langSelect = document.getElementById('langSelect');
+    const initialLang = detectLang();
+    langSelect.value = initialLang;
+    applyLang(initialLang);
+    langSelect.addEventListener('change', ()=>applyLang(langSelect.value));
+
+    const main = document.getElementById('mainLink').textContent.trim();
+    const backup = document.getElementById('backupLink').textContent.trim();
+    const pwd = document.getElementById('pwdText').textContent.trim();
+
+    document.getElementById('copyMainBtn').addEventListener('click', async ()=>{
+      await copyText(main);
+      showToast((I18N[langSelect.value]||I18N.zh).toast_copied);
+    });
+    document.getElementById('copyBackupBtn').addEventListener('click', async ()=>{
+      await copyText(backup);
+      showToast((I18N[langSelect.value]||I18N.zh).toast_copied);
+    });
+    document.getElementById('copyPwdBtn').addEventListener('click', async ()=>{
+      await copyText(pwd);
+      showToast((I18N[langSelect.value]||I18N.zh).toast_copied);
     });
   </script>
 </body>
